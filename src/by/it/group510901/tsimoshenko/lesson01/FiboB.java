@@ -1,5 +1,6 @@
-package by.it.a_khmelev.lesson01;
+package by.it.group510901.tsimoshenko.lesson01;
 
+import javax.naming.Binding;
 import java.math.BigInteger;
 import java.util.ArrayList;
 
@@ -25,7 +26,13 @@ public class FiboB {
 
     BigInteger fastB(Integer n) {
         //здесь нужно реализовать вариант с временем O(n) и памятью O(n)
-        return BigInteger.valueOf(-1L);
+        BigInteger[] map = new BigInteger[n+1];
+        map[0] = BigInteger.ZERO;
+        map[1] = BigInteger.ONE;
+        for (int i = 2; i <= n; i++){
+            map[i] = map[i-1].add(map[i-2]);
+        }
+        return map[n];
     }
 
 }

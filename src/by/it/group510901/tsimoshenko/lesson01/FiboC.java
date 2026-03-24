@@ -1,4 +1,4 @@
-package by.it.a_khmelev.lesson01;
+package by.it.group510901.tsimoshenko.lesson01;
 
 /*
  * Даны целые числа 1<=n<=1E18 и 2<=m<=1E5,
@@ -21,10 +21,33 @@ public class FiboC {
         return System.currentTimeMillis() - startTime;
     }
 
+
+    private long pisanoPeriod(int m) {
+        if (m == 1) return 1;
+        int prev = 0, curr = 1;
+        for (int i = 0; i < m * m; i++) {
+            int next = (prev + curr) % m;
+            prev = curr;
+            curr = next;
+            if (prev == 0 && curr == 1) {
+                return i + 1;
+            }
+        }
+        return m * m;
+    }
+
     long fasterC(long n, int m) {
-        //Интуитивно найти решение не всегда просто и
-        //возможно потребуется дополнительный поиск информации
-        return -1L;
+        if (n == 0) return 0;
+        if (n == 1) return 1 % m;
+        long period = pisanoPeriod(m);
+        n = n % period;
+        long prev = 0, curr = 1;
+        for (long i = 2; i <= n; i++) {
+            long next = (prev + curr) % m;
+            prev = curr;
+            curr = next;
+        }
+        return curr;
     }
 
 
