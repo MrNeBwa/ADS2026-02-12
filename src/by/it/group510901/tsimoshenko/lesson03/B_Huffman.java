@@ -2,6 +2,8 @@ package by.it.group510901.tsimoshenko.lesson03;
 
 import java.io.FileNotFoundException;
 import java.io.InputStream;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Scanner;
 
 // Lesson 3. B_Huffman.
@@ -55,12 +57,36 @@ public class B_Huffman {
         Scanner scanner = new Scanner(inputStream);
         Integer count = scanner.nextInt();
         Integer length = scanner.nextInt();
-        //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! НАЧАЛО ЗАДАЧИ !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!1
-        //тут запишите ваше решение
 
+        //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! НАЧАЛО ЗАДАЧИ !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!1
+        // Создаём карту для декодирования: код -> символ
+        Map<String, Character> decodeMap = new HashMap<>();
+
+        // Считываем коды символов в формате "letter: code"
+        for (int i = 0; i < count; i++) {
+            String letterPart = scanner.next();  //  "a:"
+            String code = scanner.next();         //  "0"
+            // Убираем двоеточие из letterPart
+            char letter = letterPart.charAt(0);
+            decodeMap.put(code, letter);
+        }
+
+        String encoded = scanner.next();
+
+        // Декодируем строку
+        StringBuilder currentCode = new StringBuilder();
+        for (char bit : encoded.toCharArray()) {
+            currentCode.append(bit);
+            String codeStr = currentCode.toString();
+
+            if (decodeMap.containsKey(codeStr)) {
+                result.append(decodeMap.get(codeStr));
+                currentCode.setLength(0);
+            }
+        }
 
         //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! КОНЕЦ ЗАДАЧИ !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!1
-        return result.toString(); //01001100100111
+        return result.toString();
     }
 
 
